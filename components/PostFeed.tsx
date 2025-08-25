@@ -2,14 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Post } from '../lib/database';
+import { PostWithScore } from '../types';
 import PostCard from './PostCard';
 import SearchBar from './SearchBar';
 import { dbService } from '../lib/database';
-
-// Extended Post interface with similarity score for search results
-interface PostWithScore extends Post {
-  similarityScore: number;
-}
 
 interface PostFeedProps {
   posts: Post[];
@@ -174,7 +170,7 @@ const PostFeed = ({ posts, onLike }: PostFeedProps) => {
                 <p>Showing {filteredPosts.length} of {posts.length} posts</p>
                 {searchTerm && filteredPosts.length > 0 && filteredPosts[0].similarityScore > 0 && (
                   <p className="text-xs text-blue-600 mt-1">
-                    Top result similarity: {filteredPosts[0].similarityScore.toFixed(3)}
+                    Top result similarity: {(filteredPosts[0].similarityScore * 100).toFixed(1)}%
                   </p>
                 )}
               </div>
@@ -198,17 +194,7 @@ const PostFeed = ({ posts, onLike }: PostFeedProps) => {
           {filteredPosts.map((post) => (
             <PostCard 
               key={post.id} 
-              post={{
-                id: post.id,
-                title: post.title,
-                content: post.content,
-                author: post.author,
-                createdAt: post.createdAt,
-                likes: post.likes,
-                embeddings: post.embeddings,
-                embeddingModel: post.embeddingModel,
-                embeddingGeneratedAt: post.embeddingGeneratedAt
-              }} 
+              post={post}
               onLike={onLike} 
             />
           ))}
