@@ -68,7 +68,7 @@ const HomePage = () => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
         
-        const response = await fetch('http://localhost:4075/generate-embeddings', {
+        const response = await fetch('https://semantic-search-social-media-api.onrender.com/generate-embeddings', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -52,7 +52,7 @@ const PostFeed = ({ posts, onLike }: PostFeedProps) => {
       const performSemanticSearch = async () => {
         setIsSearching(true);
         try {
-          const response = await fetch(`http://localhost:4075/generate-search-embeddings?searchKey=${encodeURIComponent(searchTerm)}`, {
+          const response = await fetch(`https://semantic-search-social-media-api.onrender.com/generate-search-embeddings?searchKey=${encodeURIComponent(searchTerm)}`, {
             method: 'GET',
           });
 
